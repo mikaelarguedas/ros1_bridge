@@ -14,6 +14,8 @@ find_package(rmw REQUIRED)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rcutils REQUIRED)
+find_package(rcl_yaml_param_parser REQUIRED)
 find_package(rmw_implementation_cmake REQUIRED)
 find_package(std_msgs REQUIRED)
 
@@ -143,6 +145,8 @@ function(custom_executable target)
     ${ARG_UNPARSED_ARGUMENTS})
   ament_target_dependencies(${target}
     "rclcpp"
+    "rcutils"
+    "rcl_yaml_param_parser"
     ${ARG_TARGET_DEPENDENCIES})
   if(ARG_ROS1_DEPENDENCIES)
     ament_target_dependencies(${target}
@@ -177,6 +181,8 @@ ament_target_dependencies(${PROJECT_NAME}
   ${prefixed_ros1_message_packages}
   ${ros2_interface_packages}
   "rclcpp"
+  "rcutils"
+  "rcl_yaml_param_parser"
   "ros1_roscpp"
   "ros1_std_msgs")
 
@@ -197,6 +203,13 @@ custom_executable(parameter_bridge
   ROS1_DEPENDENCIES
   TARGET_DEPENDENCIES ${message_packages})
 target_link_libraries(parameter_bridge
+  ${PROJECT_NAME})
+
+custom_executable(ros2_parameter_bridge
+  "src/ros2_parameter_bridge.cpp"
+  ROS1_DEPENDENCIES
+  TARGET_DEPENDENCIES ${message_packages})
+target_link_libraries(ros2_parameter_bridge
   ${PROJECT_NAME})
 
 custom_executable(dynamic_bridge

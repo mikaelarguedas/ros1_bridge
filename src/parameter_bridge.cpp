@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
   // the parameter needs to be an array
   // and each item needs to be a dictionary with the following keys;
   // topic: the name of the topic to bridge
-  // type: the type of the topic to bridge
+  // type: the ROS 2 type of the topic to bridge
   // queue_size: the queue size to use (default: 100)
   const char * topics_parameter_name = "topics";
   const char * services_1_to_2_parameter_name = "services_1_to_2";
